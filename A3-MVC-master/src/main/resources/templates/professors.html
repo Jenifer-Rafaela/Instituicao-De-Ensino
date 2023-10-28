@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <style>
+        .form-group.success input {
+            border-color: #09c372;
+        }
+
+        .form-group.error input {
+            border-color: #ff3860;
+        }
+
+        .form-group .error {
+            color: #ff3860;
+            font-size: 13px;
+            height: 13px;
+        }
+    </style>
+    <title>Professores</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="" th:href="@{/admin}">
+            <img th:src="@{/images/elearning.png}" src="../static/images/elearning.png" width="60" height="55"
+                 class="d-inline-block align-top" alt=""/>
+        </a>
+        <div class="container-fluid">
+            <ul class="navbar-nav nav-underline">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="" th:href="@{/admin}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="" th:href="@{/admin/professor}">Professores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="" th:href="@{/admin/class}">Turmas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="" th:href="@{/admin/student}">Estudantes</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br><br>
+<div class="container">
+    <button type="link" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Adicionar
+        Professor
+    </button>
+    <br><br>
+    <div class="table-responsive-md">
+    <table class="table">
+        <thead class="table-primary">
+        <tr>
+            <th scope="col">N</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Email</th>
+            <th scope="col">Titulação</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="professors, iStat : ${Professors}">
+            <th scope="row" th:text="${iStat.index + 1}">1</th>
+            <input type="hidden" th:value="${professors.id}" class="id">
+            <td th:text="${professors.name}">Nome</td>
+            <td th:text="${professors.email}">Email</td>
+            <td th:text="${professors.degree}">Titulação</td>
+            <td><a href="" th:href="@{/admin/professor/details/{id}(id=${professors.id})}" class="btn btn-info btn-sm">Detalhes</a>
+            </td>
+            <td>
+                <button type="button" class="btn btn-warning btn-sm updateProfessor" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">Atualizar
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger btn-sm deleteProfessor" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Deletar
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+
+<!-- Modal ADICIONAR -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Professor</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        th:onclick="'resetModal()'"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form id="form">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-success text-center" role="alert" style="display: none"
+                                     id="alertAdd"></div>
+                                <div class="form-group">
+                                    <label for="name">Nome</label>
+                                    <input type="text" maxlength="70" class="form-control" required id="name"
+                                           placeholder="nome">
+                                    <div class="error"></div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="date">Data de Nascimento</label>
+                                    <input type="date"  class="form-control" required id="date" pattern="\d{2}-\d{2}-\d{4}">
+                                    <div class="error"></div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" required
+                                           id="email"
+                                           placeholder="email@example.com">
+                                    <div class="error"></div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="cpf">CPF</label>
+                                    <input type="text" class="form-control" required id="cpf"
+                                           placeholder="___.___.___-__">
+                                    <div class="error"></div>
+                                </div>
+                                <br>
+                                <label for="degree" class="form-label">Titulação</label>
+                                <select class="form-select" aria-label="Default select example" id="degree" required>
+                                    <option th:each="degree : ${Degree}" th:text="${degree.getDegree()}"></option>
+                                </select>
+                                <br>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL DELETAR-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"><br>
+            <div class="modal-body text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
+                     class="bi bi-exclamation-circle text-warning" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                </svg>
+            </div>
+            <br>
+            <div class="alert alert-danger text-center" role="alert" style="display: none" id="alertDelete">
+                Professor está associado à uma turma!
+            </div>
+            <br>
+            <div class="text-center">
+                <h3>Tem certeza que deseja deletar este professor?</h3>
+                <p>Essa ação não poderá ser desfeita.</p>
+            </div>
+            <br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary btn-sm" id="deleteButton" th:onclick="'deleteProfessor()'">
+                    Sim, deletar professor!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+<script src="/js/professor.js"></script>
+</body>
+</html>
