@@ -5,7 +5,6 @@ import com.A3.Curso.DTO.Students.StudentDTO;
 import com.A3.Curso.DTO.Students.StudentResponseDTO;
 import com.A3.Curso.Enum.Shift;
 import com.A3.Curso.Model.Classes;
-import com.A3.Curso.Model.Professor;
 import com.A3.Curso.Model.Student;
 import com.A3.Curso.Repository.ClassesRepository;
 import com.A3.Curso.Repository.ProfessorRepository;

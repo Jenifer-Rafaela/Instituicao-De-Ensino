@@ -1,13 +1,19 @@
 package com.A3.Curso.Controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@RestController
 public class HomeController {
 
-    @GetMapping("/admin")
-    public String adminHome() {
-        return "adminHome";
+    @GetMapping("/login")
+    public ModelAndView login() {
+        return new ModelAndView("login");
+    }
+
+    @GetMapping("/admin/home")
+    public ModelAndView adminHome() {
+        return new ModelAndView("adminHome");
     }
 }

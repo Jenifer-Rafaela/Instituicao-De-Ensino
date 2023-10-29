@@ -11,17 +11,17 @@
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <title>Home</title>
 </head>
-<body style="background-color:white;" onload="recarregarPaginaUmaVez()">
+<body  onload="exibirModal()">
 <nav class="navbar navbar-expand-sm bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="" th:href="@{/admin}">
+        <a class="navbar-brand" href="" th:href="@{/admin/home}">
             <img th:src="@{/images/elearning.png}" src="../static/images/elearning.png" width="60" height="55"
                  class="d-inline-block align-top" alt=""/>
         </a>
         <div class="container-fluid">
             <ul class="navbar-nav nav-underline">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="" th:href="@{/admin}">Home</a>
+                    <a class="nav-link active" aria-current="page" href="" th:href="@{/admin/home}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="" th:href="@{/admin/professor}">Professores</a>
@@ -31,6 +31,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="" th:href="@{/admin/student}">Estudantes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="" th:href="@{/logout}" th:onclick="'modal()'">Sair</a>
                 </li>
             </ul>
         </div>
@@ -90,18 +93,13 @@
         crossorigin="anonymous"></script>
 <script>
 
-    // Função para recarregar a página apenas uma vez
-    function recarregarPaginaUmaVez() {
-        if (!localStorage.getItem('modalExibido') === true) {
+    function exibirModal() {
+        if (localStorage.getItem('modalExibido') === 'false') {
             $("#myModal").modal('show');
             localStorage.setItem('modalExibido', 'true');
-            window.addEventListener('beforeunload', function () {
-
-                localStorage.setItem('modalExibido', 'false');
-            });
         }
     }
-
 </script>
+<script src="/js/logout.js"></script>
 </body>
 </html>

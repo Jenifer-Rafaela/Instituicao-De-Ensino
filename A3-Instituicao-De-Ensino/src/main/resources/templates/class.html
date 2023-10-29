@@ -27,14 +27,14 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="" th:href="@{/admin}">
+        <a class="navbar-brand" href="" th:href="@{/admin/home}">
             <img th:src="@{/images/elearning.png}" src="../static/images/elearning.png" width="60" height="55"
                  class="d-inline-block align-top" alt=""/>
         </a>
         <div class="container-fluid">
             <ul class="navbar-nav nav-underline">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="" th:href="@{/admin}">Home</a>
+                    <a class="nav-link" aria-current="page" href="" th:href="@{/admin/home}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="" th:href="@{/admin/professor}">Professores</a>
@@ -44,6 +44,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="" th:href="@{/admin/student}">Estudantes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="" th:href="@{/logout}" th:onclick="'modal()'">Sair</a>
                 </li>
             </ul>
         </div>
@@ -176,5 +179,6 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
 <script src="/js/class.js"></script>
+<script src="/js/logout.js"></script>
 </body>
 </html>
