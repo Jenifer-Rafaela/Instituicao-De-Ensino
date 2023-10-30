@@ -82,15 +82,15 @@ public class ClassesService {
         if (classes.isPresent()) {
             model.addAttribute("class", classesResponseDTO.classesToDTO(classes.get()));
             model.addAttribute("Students", studentResponseDTO.studentsToDTOList(studentRepository.findAllByClassesId(id)));
-            return new ModelAndView("classDetails");
         }
-        return new ModelAndView("error");
+        return new ModelAndView("classDetails");
     }
 
     public ResponseEntity<String> putClass(long id, ClassesDTO classesDTO) {
         Optional<Classes> classes = classRepository.findById(id);
+        Professor professor = professorRepository.findById(classesDTO.getProfessor()).get();
         if (classes.isPresent()) {
-            classRepository.save(classesDTO.DTOToClass(classes.get(), classes.get().getProfessor()));
+            classRepository.save(classesDTO.DTOToClass(classes.get(), professor));
             return ResponseEntity.status(200).build();
         }
         return ResponseEntity.status(500).build();

@@ -63,7 +63,7 @@ public class ProfessorService {
 
     public ResponseEntity<Map<String, Boolean>> addProfessor(ProfessorDTO professorDTO) {
         Optional<String> email = professorRepository.emailExists(professorDTO.getEmail(),0);
-        Optional<String> cpf = professorRepository.cpfExists(professorDTO.getEmail(),0);
+        Optional<String> cpf = professorRepository.cpfExists(professorDTO.getCpf(),0);
 
         if (!email.isPresent() && !cpf.isPresent()) {
             professorRepository.save(professorDTO.DTOToProfessor());
@@ -79,9 +79,9 @@ public class ProfessorService {
         if (professor.isPresent()) {
             model.addAttribute("Professor", professorDTO.ProfessorToDTO(professor.get()));
             model.addAttribute("Classes", classesDTO.classesToDTOList(classes));
-            return new ModelAndView("professorDetails");
+
         }
-        return new ModelAndView("error");
+        return new ModelAndView("professorDetails");
     }
 
     public ResponseEntity<String> deleteProfessor(long id) {

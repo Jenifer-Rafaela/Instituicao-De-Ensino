@@ -23,7 +23,7 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 
     @Query(value = "SELECT CPF FROM PROFESSOR\n" +
             "WHERE CPF = :cpf AND ID != :professorId\n" +
-            "UNION\n" +
+            "UNION ALL\n" +
             "SELECT CPF FROM STUDENT\n" +
             " WHERE CPF = :cpf\n" +
             "ORDER BY CPF;", nativeQuery = true)

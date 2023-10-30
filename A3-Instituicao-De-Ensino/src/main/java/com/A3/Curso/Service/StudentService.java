@@ -102,9 +102,9 @@ public class StudentService {
         if (student.isPresent()) {
             model.addAttribute("Student", studentResponseDTO.studentsToDTO(student.get()));
             model.addAttribute("Classes", classesResponseDTO.classesToDTOList(classes));
-            return new ModelAndView("studentDetails");
+
         }
-        return new ModelAndView("error");
+        return new ModelAndView("studentDetails");
     }
 
 }

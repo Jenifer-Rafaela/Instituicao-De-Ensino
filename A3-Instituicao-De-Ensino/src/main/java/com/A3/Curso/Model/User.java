@@ -9,7 +9,8 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-public class UserEntity {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +22,6 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column
+    @Column(nullable = false)
     private String role;
 }
