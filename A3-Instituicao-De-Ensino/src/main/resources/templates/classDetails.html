@@ -75,7 +75,8 @@
                 <td th:text="${student.email}">Email</td>
                 <td th:text="${student.shift}">Shift</td>
                 <td>
-                    <button type="button" class="btn btn-danger btn-sm remove-button">Remover</button>
+                    <button type="button" class="btn btn-danger btn-sm removeStudent" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Remover</button>
                 </td>
             </tr>
             </tbody>
@@ -132,6 +133,35 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"><br>
+            <div class="modal-body text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
+                     class="bi bi-exclamation-circle text-warning" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                </svg>
+            </div>
+            <div class="alert alert-danger text-center" role="alert" style="display: none" id="alertDelete">
+                Não foi possível deletar o Estudante.
+            </div>
+            <br>
+            <div class="text-center">
+                <h3>Tem certeza que deseja deletar este estudante?</h3>
+            </div>
+            <br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary btn-sm" th:onclick="'removeStudent()'">Sim, remover
+                    estudante!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

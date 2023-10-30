@@ -1,11 +1,11 @@
 const classId = document.getElementById("idClass").value;
 const alert = document.getElementById("alert");
+let ra;
 
-document.querySelectorAll(".remove-button").forEach(
+document.querySelectorAll(".removeStudent").forEach(
     function (button) {
         button.addEventListener("click", function () {
-            const ra = button.closest("tr").querySelector("td:first-child").textContent;
-            removeStudent(ra);
+            ra = button.closest("tr").querySelector("td:first-child").textContent;
         });
     });
 
@@ -63,7 +63,7 @@ function addStudentToClass(ra) {
     });
 }
 
-function removeStudent(ra) {
+function removeStudent() {
     $.ajax({
         type: 'DELETE',
         url: `/admin/class/remove/student/${classId}/${ra}`,
