@@ -11,6 +11,10 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @Setter
+
+/**
+ * DTO para mostrar informações específicas de Student.
+ * */
 public class StudentResponseDTO {
 
     private long id;
@@ -20,11 +24,22 @@ public class StudentResponseDTO {
     private String shift;
     private Date date;
 
-    public StudentResponseDTO studentsToDTO(Student student){
+    /**
+     * <strong>Método para transformar student em StudentResponseDTO.</strong>
+     *
+     * @param student será transformado em StudentResponseDTO.
+     * @return StudentResponseDTO.
+     */
+    public StudentResponseDTO studentToDTO(Student student){
         return new StudentResponseDTO(student.getId(),student.getName(),student.getEmail() ,student.getCpf(),student.getShift(),student.getDate());
     }
 
-    public List<StudentResponseDTO> studentsToDTOList(List<Student>  student){
+    /**
+     * <strong>Método para transformar uma lista de student em uma lista StudentResponseDTO.</strong>
+     * @param student será transformado em uma lista StudentResponseDTO.
+     * @return StudentResponseDTO.
+     * */
+    public List<StudentResponseDTO> studentToDTOList(List<Student>  student){
         List<StudentResponseDTO> srdList = student.stream()
                 .map(Student -> new StudentResponseDTO(
                         Student.getId(),

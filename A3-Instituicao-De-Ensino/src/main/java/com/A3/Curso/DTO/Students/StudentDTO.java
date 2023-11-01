@@ -10,6 +10,10 @@ import java.sql.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+
+/**
+ * DTO para receber informações da view (students.html).
+ * */
 public class StudentDTO {
 
     private String name;
@@ -18,19 +22,21 @@ public class StudentDTO {
     private String shift;
     private Date date;
 
-//    private StudentDTO(String name, String email, String cpf, String shift, Date date) {
-//        this.name = name;
-//        this.email = email;
-//        this.cpf = cpf;
-//        this.shift = shift;
-//        this.date = date;
-//    }
-
+    /**
+     * <strong>Método para transformar StudentDTO em Student.</strong>
+     *
+     * @return Student.
+     */
     public Student DTOToStudent() {
-
         return new Student(name, email, cpf, shift, date);
     }
 
+    /**
+     * <strong>Método para transformar StudentDTO em Student.</strong>
+     *
+     * @param student receberá as informações de StudentDTO.
+     * @return Student.
+     */
     public Student DTOToStudentUpdate(Student student) {
         return new Student(student.getId(), name, email, cpf, shift, date);
     }

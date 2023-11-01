@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.servlet.function.RequestPredicates;
 
 @Configuration
 @EnableWebSecurity
@@ -25,11 +24,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .headers(headers ->headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable()))
+                .headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(httpRequests -> httpRequests
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-                        .requestMatchers("/login","/logout", "/js/**", "/images/**")
+                        .requestMatchers("/login", "/logout", "/js/**", "/images/**")
                         .permitAll()
                         .requestMatchers("/admin/**")
                         .hasAuthority("ADMIN")
@@ -49,12 +48,16 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /*
+     * Método que verifica o usuário e senha informados e sua permissão.
+     * DaoAuthenticationProvider é responsável por verificar essas informações no banco de dados.
+     * */
     @Bean
-    AuthenticationProvider authenticationProvider(){
-            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-            provider.setUserDetailsService(userDetailsService);
-            provider.setPasswordEncoder(new BCryptPasswordEncoder());
-            return provider;
+    AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(new BCryptPasswordEncoder());
+        return provider;
     }
 
 }

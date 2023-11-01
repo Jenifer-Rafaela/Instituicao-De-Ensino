@@ -12,7 +12,9 @@ import java.util.List;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
-
+/**
+ * DTO para mostrar informações específicas da turma e do seu professor
+ * */
 public class ClassesProfessorResponseDTO {
 
     private long id;
@@ -25,6 +27,11 @@ public class ClassesProfessorResponseDTO {
     private String professorDegree;
 
 
+    /**
+     * <strong>Método para transformar classes em um ClassesProfessorResponseDTO.</strong>
+     * @param classes será transformada em ClassesProfessorResponseDTO.
+     * @return ClassesProfessorResponseDTO.
+     * */
     public ClassesProfessorResponseDTO classesToDTO(Classes classes) {
         ClassesProfessorResponseDTO classesResponseDTO = new ClassesProfessorResponseDTO(classes.getId(),
                 classes.getClassName(),
@@ -36,15 +43,4 @@ public class ClassesProfessorResponseDTO {
                 classes.getProfessor().getDegree());
         return classesResponseDTO;
     }
-
-    public List<ClassesProfessorResponseDTO> classesToDTOList(List<Classes> classes) {
-        List<ClassesProfessorResponseDTO> crdList = new ArrayList<>();
-
-        for (Classes classes1 : classes) {
-            crdList.add(classesToDTO(classes1));
-        }
-
-        return crdList;
-    }
-
 }

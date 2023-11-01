@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -16,6 +17,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    /*
+    * Método para pegar o username do banco de dados e enviar para o CustomUserDetails
+    * para ser recuperado o username, a senha e a permissão.
+    * */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 

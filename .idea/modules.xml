@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/A3-MVC-master1.iml" filepath="$PROJECT_DIR$/.idea/A3-MVC-master1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A3-MVC-master/Curso.iml" filepath="$PROJECT_DIR$/A3-MVC-master/Curso.iml" />
     </modules>
   </component>
 </project>

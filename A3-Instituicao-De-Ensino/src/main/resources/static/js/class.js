@@ -78,71 +78,73 @@ function submit() {
         classday: classDay.value,
         professor: professor.value
     }
-    $.ajax({
+
+    axios({
         url: `/admin/class/add`,
-        method: 'POST',
+        method: 'post',
         data: JSON.stringify(formData),
-        contentType: 'application/json',
-        success: function (jqXHR) {
-            classSaved(className.value);
-        },
-        error: function (jqXHR) {
-            if (jqXHR.status === 500) {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(function (response) {
+            classSaved(className);
+        })
+        .catch(function (error) {
+            if (error.response.status === 500) {
                 alertAdd.style.display = 'block';
                 alertAdd.className = "alert alert-danger text-center";
                 alertAdd.innerText = "Não foi possível adicionar a Turma!!";
             }
-        }
-    });
+        });
 }
 
 function classSaved(className) {
     alertAdd.style.display = 'block';
     alertAdd.className = "alert alert-success text-center";
     alertAdd.innerText = "Turma adicionada!!";
-    className.innerHTML = "";
+    const formGroup = className.parentElement;
+    formGroup.classList.remove('success');
+    className.value = "";
 }
 
-function classUpdated(className) {
+function classUpdated() {
     alertAdd.style.display = 'block';
     alertAdd.className = "alert alert-success text-center";
     alertAdd.innerText = "Turma atualizada!!";
-    className.innerHTML = "";
-
 }
 
 function deleteClass() {
-    $.ajax({
-        type: 'DELETE',
+    axios({
+        method: 'delete',
         url: `/admin/class/delete/${id}`,
-        success: function (data) {
+    })
+        .then(function (response) {
             location.reload();
-        }
-    }).fail(function (jqXHR) {
-        if(jqXHR.status === 500){
+        })
+        .catch(function (error) {
             alertDelete.style.display = 'block';
-        }
-    });
+        });
 }
 
 function getClass(id) {
-    $.ajax({
-        url: `/admin/class/update/${id}`,
-        method: 'GET',
-        success: function (data) {
+    console.log(professor.value + " "+ professor.innerText)
+    axios.get(`/admin/class/update/${id}`)
+        .then(function (response) {
+            const data = response.data;
             className.value = data.className;
             classRoom.value = data.classRoom;
             classTime.value = data.time;
             classDay.value = data.classday;
-        },
-        error: function (jqXHR) {
-            if (jqXHR.status === 500) {
+            professor.value = data.professorId;
+        })
+        .catch(function (error) {
+            if (error.response.status === 500) {
                 alertAdd.style.display = 'block';
                 alertAdd.className = "alert alert-danger text-center";
                 alertAdd.innerText = "Não foi possível buscar a Turma!!";
             }
-        }
-    });
+        });
 }
 
 function updateClass(id) {
@@ -153,22 +155,25 @@ function updateClass(id) {
         time: classTime.value,
         classday: classDay.value
     }
-    $.ajax({
+
+    axios({
+        method: 'put',
         url: `/admin/class/update/${id}`,
-        method: 'PUT',
         data: JSON.stringify(formData),
-        contentType: 'application/json',
-        success: function () {
-            classUpdated(className.value);
-        },
-        error: function (jqXHR) {
-            if(jqXHR.status === 500){
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(function (response) {
+            classUpdated();
+        })
+        .catch(function (error) {
+            if (error.response.status === 500) {
                 alertAdd.style.display = 'block';
                 alertAdd.className = "alert alert-danger text-center";
                 alertAdd.innerText = "Não foi possível atualizar a Turma!!";
             }
-        }
-    });
+        });
 }
 
 function resetModal() {

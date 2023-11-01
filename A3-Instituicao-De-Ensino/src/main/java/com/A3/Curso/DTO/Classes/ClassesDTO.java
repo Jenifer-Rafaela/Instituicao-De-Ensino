@@ -12,6 +12,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+/**
+ * DTO para receber informações da view (class.html).
+ * */
 public class ClassesDTO {
 
     private String className;
@@ -28,11 +31,22 @@ public class ClassesDTO {
         this.professor = Long.parseLong(professors);
     }
 
-    //Transforma DTO em Classe
+    /**
+     * <strong>Método para transformar ClassesDTO em Classes.</strong>
+     *
+     * @param professor será incluído em Classes.
+     * @return Classes.
+     */
     public Classes DTOToClass(Professor professor) {
         return new Classes(className, classRoom, time, classday, professor);
     }
 
+    /**
+     * <strong>Método para transformar uma lista de Classes em uma lista de ClassesDTO.</strong>
+     *
+     * @param classes lista de classes para serem transformadas.
+     * @return ClassesDTO.
+     */
     public List<ClassesDTO> classesToDTOList(List<Classes> classes) {
         List<ClassesDTO> crdList = new ArrayList<>();
 
@@ -43,12 +57,30 @@ public class ClassesDTO {
         return crdList;
     }
 
+    /**
+     * <strong>Método para transformar classes em ClassesDTO.</strong>
+     *
+     * @param classes será transformada em ClassesDTO.
+     * @return ClassesDTO.
+     */
     public ClassesDTO classesToDTO(Classes classes) {
         return new ClassesDTO(classes.getClassName(), classes.getClassRoom(), classes.getTime(), classes.getClassday(), String.valueOf(classes.getProfessor().getId()));
     }
 
-    public Classes DTOToClass(Classes classes, Professor professor) {
-        return new Classes(classes.getId(), className, classRoom, time, classday, professor);
+    /**
+     * <strong>Método para transformar ClassesDTO em Classes.</strong>
+     *
+     * @param classes   classe que receberá as informações de ClassesDTO.
+     * @param professor professor que será incluído em classes.
+     * @return classes.
+     */
+    public Classes DTOToClassUpdate(Classes classes, Professor professor) {
+        classes.setClassName(className);
+        classes.setClassRoom(classRoom);
+        classes.setTime(time);
+        classes.setClassday(classday);
+        classes.setProfessor(professor);
+        return classes;
     }
 
 }

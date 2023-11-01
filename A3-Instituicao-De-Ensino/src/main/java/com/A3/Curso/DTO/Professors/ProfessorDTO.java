@@ -9,6 +9,10 @@ import java.sql.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+
+/**
+ * DTO para receber informações da view (professor.html).
+ * */
 public class ProfessorDTO {
 
     private String name;
@@ -17,17 +21,37 @@ public class ProfessorDTO {
     private String degree;
     private Date date;
 
-    //Transforma DTO em Professor
+
+    /**
+     * <strong>Método para transformar ProfessorDTO em Professor.</strong>
+     *
+     * @return Professor.
+     */
     public Professor DTOToProfessor() {
         return new Professor(name, email, cpf, degree, date);
     }
 
-    //Atualiza um professor
+    /**
+     * <strong>Método para transformar ProfessorDTO em Professor.</strong>
+     *
+     * @param professor receberá as informações de ProfessorDTO.
+     * @return professor.
+     */
     public Professor DTOToProfessorUpdate(Professor professor) {
-        return new Professor(professor.getId(), name, email, cpf, degree, date);
+        professor.setName(name);
+        professor.setEmail(email);
+        professor.setCpf(cpf);
+        professor.setDegree(degree);
+        professor.setDate(date);
+        return professor;
     }
 
-    //Transforma professor em DTO
+    /**
+     * <strong>Método para transformar professor em ProfessorDTO.</strong>
+     *
+     * @param professor será transformado em ProfessorDTO.
+     * @return ProfessorDTO.
+     */
     public ProfessorDTO ProfessorToDTO(Professor professor) {
         return new ProfessorDTO(professor.getName(), professor.getEmail(), professor.getCpf(), professor.getDegree(), professor.getDate());
     }

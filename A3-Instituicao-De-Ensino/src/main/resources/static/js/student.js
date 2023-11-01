@@ -7,7 +7,8 @@ const name = document.getElementById('name');
 const cpf = document.getElementById('cpf');
 const shift = document.getElementById('shift');
 let id;
-let cpfSemMascara;
+let cpfUnmasked;
+let cpfMask;
 let maxYear;
 let minYear;
 let validDate = false;
@@ -15,8 +16,12 @@ let validEmail = false;
 let validCpf = false;
 let validName = false;
 
-$(document).ready(function () {
-    $('#cpf').inputmask('999.999.999-99');
+document.addEventListener("DOMContentLoaded", function() {
+    const maskOptions = {
+        mask: '000.000.000-00'
+    };
+
+    cpfMask = IMask(cpf, maskOptions);
 
     const thisYear = new Date().getFullYear();
     minYear = thisYear - 14;
@@ -39,6 +44,7 @@ document.querySelectorAll(".deleteStudent").forEach(
     function (button) {
         button.addEventListener("click", function () {
             id = button.closest("tr").querySelector(".id").textContent;
+            document.getElementById("deleteButton").disabled = false;
             alertDelete.style.display = 'none';
         });
     });
@@ -63,99 +69,100 @@ function submit() {
     let formData = {
         name: name.value,
         email: email.value,
-        cpf: cpfSemMascara,
+        cpf: cpfUnmasked,
         shift: shift.value,
         date: date.value
     }
-    $.ajax({
-        url: `/admin/student/add`,
+    axios({
+        url: '/admin/student/add',
         method: 'POST',
         data: JSON.stringify(formData),
-        contentType: 'application/json',
-        success: function () {
-            studentSaved(name.value, email.value, cpf.value, date.value);
-        },
-        error: function (error) {
-            const validate = JSON.parse(error.responseText);
-            if(error.status === 409) {
-                duplicateValues(validate)
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(function (response) {
+            studentSaved(name, email, cpfMask, date);
+        })
+        .catch(function (error) {
+            if (error.response.status === 409) {
+                const validate = error.response.data;
+                duplicateValues(validate);
             } else {
                 alertAdd.style.display = 'block';
                 alertAdd.className = "alert alert-danger text-center";
                 alertAdd.innerText = "Não foi possível adicionar o Estudante!!";
             }
-        }
-    });
+        });
 }
 
 function getStudent(id) {
-    $.ajax({
-        url: `/admin/student/update/${id}`,
-        method: 'GET',
-        success: function (data) {
+    axios.get(`/admin/student/update/${id}`)
+        .then(function (response) {
+            const data = response.data;
             name.value = data.name;
-            cpf.value = data.cpf;
+            cpfMask.value = data.cpf;
             email.value = data.email;
             shift.value = data.shift;
             date.value = data.date;
-        },
-        error: function (jqXHR) {
-            if (jqXHR.status === 500) {
+        })
+        .catch(function (error) {
+            if (error.response.status === 500) {
                 alertAdd.style.display = 'block';
                 alertAdd.className = "alert alert-danger text-center";
                 alertAdd.innerText = "Não foi possível buscar o Estudante!!";
             }
-        }
-    });
+        });
 }
 
 function updateStudent(id) {
     let formData = {
         name: name.value,
         email: email.value,
-        cpf: cpfSemMascara,
+        cpf: cpfUnmasked,
         shift: shift.value,
         date: date.value
     }
-    $.ajax({
+    axios({
+        method: 'put',
         url: `/admin/student/update/${id}`,
-        method: 'PUT',
         data: JSON.stringify(formData),
-        contentType: 'application/json',
-        success: function (jqXHR) {
-            studentUpdated(name.value, email.value, cpf.value, date.value);
-        },
-        error: function (error) {
-            const validate = JSON.parse(error.responseText);
-            if(error.status === 409) {
-                duplicateValues(validate)
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(function (response) {
+            studentUpdated();
+        })
+        .catch(function (error) {
+            if (error.response.status === 409) {
+                const validate = error.response.data;
+                duplicateValues(validate);
             } else {
                 alertAdd.style.display = 'block';
                 alertAdd.className = "alert alert-danger text-center";
                 alertAdd.innerText = "Não foi possível atualizar o Estudante!!";
             }
-        }
-    });
+        });
 }
 
 function deleteStudent() {
-    $.ajax({
-        type: 'DELETE',
+    axios({
+        method: 'delete',
         url: `/admin/student/delete/${id}`,
-        success: function (data) {
+    })
+        .then(function (response) {
             location.reload();
-        }
-    }).fail(function (jqXHR) {
-        if (jqXHR.status === 500) {
+        })
+        .catch(function (error) {
             alertDelete.style.display = 'block';
-            $("#deleteButton").prop("disabled", true);
-        }
-    });
+            document.getElementById("deleteButton").disabled = true;
+        });
 }
 
 function validate() {
 
-    cpfSemMascara = $('#cpf').inputmask("unmaskedvalue");
+    cpfUnmasked = cpfMask.unmaskedValue;
     const emailValue = email.value;
     const nameValue = name.value;
     const dateValue = new Date(date.value).getFullYear();
@@ -178,7 +185,7 @@ function validate() {
         setSuccess(email);
         validEmail = true;
     }
-    if (/^(\d)\1{10}/.test(cpfSemMascara) || !validateDigits(cpfSemMascara) || cpfSemMascara.length !== 11) {
+    if (/^(\d)\1{10}/.test(cpfUnmasked) || !validateDigits(cpfUnmasked) || cpfUnmasked.length !== 11) {
         setError(cpf, "CPF não é válido!");
         validCpf = false;
     } else {
@@ -245,20 +252,31 @@ function studentSaved(name, email, cpf, date) {
     alertAdd.style.display = 'block';
     alertAdd.className = "alert alert-success text-center";
     alertAdd.innerText = "Estudante adicionado!!";
-    name.innerHTML = "";
-    email.innerHTML = "";
-    cpf.innerHTML = "";
+    resetAll();
+    name.value = "";
+    email.value = "";
+    cpf.value = "";
     date.value = "";
 }
 
-function studentUpdated(name, email, cpf, date) {
+function resetAll() {
+    const formGroup = name.parentElement;
+    formGroup.classList.remove('success');
+
+    const formGroup2 = email.parentElement;
+    formGroup2.classList.remove('success');
+
+    const formGroup3 = cpf.parentElement;
+    formGroup3.classList.remove('success');
+
+    const formGroup4 = date.parentElement;
+    formGroup4.classList.remove('success');
+}
+
+function studentUpdated() {
     alertAdd.style.display = 'block';
     alertAdd.className = "alert alert-success text-center";
     alertAdd.innerText = "Estudante atualizado!!";
-    name.innerHTML = "";
-    email.innerHTML = "";
-    cpf.innerHTML = "";
-    date.value = "";
 }
 
 function resetModal() {

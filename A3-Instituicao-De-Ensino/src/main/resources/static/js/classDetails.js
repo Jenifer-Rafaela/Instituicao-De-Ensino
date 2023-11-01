@@ -1,5 +1,7 @@
 const classId = document.getElementById("idClass").value;
 const alert = document.getElementById("alert");
+const tbodyStudent = document.getElementById('tbodyStudent');
+let keyword = document.getElementById("keyword");
 let ra;
 
 document.querySelectorAll(".removeStudent").forEach(
@@ -13,66 +15,72 @@ function searchButton() {
     alert.style.display = 'none'
     document.getElementById("table").style.display = "table";
     const time = document.getElementById("time").innerText;
-    const keyword = document.getElementById("keyword").value;
 
-    if (keyword != null && keyword.trim() != '') {
-        $.ajax({
-            type: 'GET',
-            url: "/admin/class/search/student",
-            data: {
-                "keyword": keyword,
-                "time": time
-            },
-            success: function (data) {
-                $('#tbodyStudent > tr').remove();
-                for (let i = 0; i < data.length; i++) {
-                    $('#tbodyStudent').append('<tr>' +
-                        '<td>' + data[i].id + '</td>' +
-                        '<td>' + data[i].name + '</td>' +
-                        '<td><button type="submit" class="btn btn-info btn-sm" id="liveAlertBtn" onclick="addStudentToClass(' + data[i].id + ')">Adicionar</button></td>' +
-                        '</tr>')
+
+    if (keyword.value != null && keyword.value.trim() != '') {
+        axios.get("/admin/class/search/student", {
+            params: {
+                keyword: keyword.value,
+                time: time
+            }
+        })
+            .then(function (response) {
+                let tbodyStudent = document.getElementById('tbodyStudent');
+                while (tbodyStudent.firstChild) {
+                    tbodyStudent.removeChild(tbodyStudent.firstChild);
                 }
-                $('#keyword').val("");
-            }
-        }).fail(function (jqXHR, errorThrown) {
-            if (jqXHR.status === 404) {
-                studentNotFound();
-            }
-        });
+
+                for (let i = 0; i < response.data.length; i++) {
+                    console.log(response.data[i])
+                    createTable(response.data[i]);
+                }
+                keyword.value = "";
+                console.log("keyword: "+keyword.value);
+            })
+            .catch(function (error) {
+                if (error.response.status === 404) {
+                    studentNotFound();
+                }
+            });
     }
 }
 
 function resetKeyword() {
-    $('#keyword').val("");
-    $('#tbodyStudent > tr').remove();
+    keyword.value = "";
+    let tbodyStudent = document.getElementById('tbodyStudent');
+    while (tbodyStudent.firstChild) {
+        tbodyStudent.removeChild(tbodyStudent.firstChild);
+    }
     location.reload();
 }
 
 function addStudentToClass(ra) {
     alert.style.display = 'none';
-    $.ajax({
-        type: 'POST',
+    axios({
         url: `/admin/class/add/student/${classId}/${ra}`,
-        success: function (data) {
+        method: 'post'
+    })
+        .then(function (response) {
             alert.style.display = 'block';
-        }
-    }).fail(function (jqXHR) {
-        if (jqXHR.status === 409) {
-            studentAlreadyExistsInClass();
-        }
-    });
+        })
+        .catch(function (error) {
+            if (error.response.status === 409) {
+                studentAlreadyExistsInClass();
+            }
+        });
 }
 
 function removeStudent() {
-    $.ajax({
-        type: 'DELETE',
+    axios({
+        method: 'delete',
         url: `/admin/class/remove/student/${classId}/${ra}`,
-        success: function (data) {
+    })
+        .then(function (response) {
             location.reload();
-        }
-    }).fail(function (jqXHR) {
-        console.log("Erro ao buscar usuário: " + ra);
-    });
+        })
+        .catch(function (error) {
+            console.log("Erro ao buscar usuário: " + ra);
+        });
 }
 
 function studentNotFound() {
@@ -87,4 +95,32 @@ function studentAlreadyExistsInClass() {
     alert.innerText = "Aluno já foi adicionado a turma!";
 }
 
+function createTable(data) {
+    const newRow = document.createElement('tr');
 
+    // Coluna ID
+    const idCell = document.createElement('td');
+    idCell.textContent = data.id;
+    newRow.appendChild(idCell);
+
+    // Coluna Nome
+    const nameCell = document.createElement('td');
+    nameCell.textContent = data.name;
+    newRow.appendChild(nameCell);
+
+    // Coluna Botão
+    const buttonCell = document.createElement('td');
+    const addButton = document.createElement('button');
+    addButton.setAttribute('type', 'submit');
+    addButton.setAttribute('id', 'liveAlertBtn');
+    addButton.className = 'btn btn-info btn-sm';
+    addButton.textContent = 'Adicionar';
+    addButton.addEventListener('click', function () {
+        addStudentToClass(data.id);
+    });
+
+    buttonCell.appendChild(addButton);
+    newRow.appendChild(buttonCell);
+
+    tbodyStudent.appendChild(newRow);
+}

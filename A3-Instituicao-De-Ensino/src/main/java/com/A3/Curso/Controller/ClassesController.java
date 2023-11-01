@@ -23,6 +23,7 @@ public class ClassesController {
         this.classesService = classesService;
     }
 
+
     @GetMapping("/class")
     public ModelAndView getClasses(Model model) {
         classesService.getClasses(model);
@@ -30,7 +31,7 @@ public class ClassesController {
     }
 
     @PostMapping("/class/add")
-    public ResponseEntity<String> addProfessor(@RequestBody ClassesDTO classesDTO) {
+    public ResponseEntity<String> addClass(@RequestBody ClassesDTO classesDTO) {
         return classesService.addClass(classesDTO);
     }
 
@@ -46,7 +47,7 @@ public class ClassesController {
     }
 
     @PutMapping("/class/update/{id}")
-    public ResponseEntity<String> putProfessor(@PathVariable long id, @RequestBody ClassesDTO classesDTO) {
+    public ResponseEntity<String> putClass(@PathVariable long id, @RequestBody ClassesDTO classesDTO) {
         return classesService.putClass(id, classesDTO);
     }
 
