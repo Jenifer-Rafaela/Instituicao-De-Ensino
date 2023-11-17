@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
 /**
  * Coloca um evento em cada botão de atualizar, para pegar o id do Estudante
  * */
-document.querySelectorAll(".putStudent").forEach(
+document.querySelectorAll(".updateStudent").forEach(
     function (button) {
         button.addEventListener("click", function () {
             id = button.closest("tr").querySelector(".id").innerHTML;

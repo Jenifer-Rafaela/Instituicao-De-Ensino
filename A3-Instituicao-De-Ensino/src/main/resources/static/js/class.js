@@ -12,7 +12,7 @@ let validClassName = false;
 /**
  * Coloca um evento em cada botão de atualizar, para pegar o id da turma
  * */
-document.querySelectorAll(".putClass").forEach(
+document.querySelectorAll(".updateClass").forEach(
     function (button) {
         button.addEventListener("click", function () {
             id = button.closest("tr").querySelector(".id").value;
