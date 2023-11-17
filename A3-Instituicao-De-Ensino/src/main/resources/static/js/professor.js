@@ -5,17 +5,20 @@ const email = document.getElementById('email');
 const name = document.getElementById('name');
 const date = document.getElementById('date');
 const cpf = document.getElementById('cpf');
+const degree = document.getElementById('degree');
 let id;
 let cpfMask;
 let cpfUnmasked;
 let maxYear;
 let minYear;
-const degree = document.getElementById('degree');
 let validEmail = false;
 let validDate = false;
 let validCpf = false;
 let validName = false;
 
+/**
+ * Função que ao inicializar o DOM coloca máscara no CPF e max e min do input Data.
+ * */
 document.addEventListener("DOMContentLoaded", function() {
     const maskOptions = {
         mask: '000.000.000-00'
@@ -31,7 +34,10 @@ document.addEventListener("DOMContentLoaded", function() {
     date.setAttribute("min", maxYear+"-01-01")
 });
 
-document.querySelectorAll(".updateProfessor").forEach(
+/**
+ * Coloca um evento em cada botão de atualizar, para pegar o id do professor
+ * */
+document.querySelectorAll(".putProfessor").forEach(
     function (button) {
         button.addEventListener("click", function () {
             id = button.closest("tr").querySelector(".id").value;
@@ -40,6 +46,9 @@ document.querySelectorAll(".updateProfessor").forEach(
         });
     });
 
+/**
+ * Coloca um evento em cada botão de deletar, para pegar o id do professor
+ * */
 document.querySelectorAll(".deleteProfessor").forEach(
     function (button) {
         button.addEventListener("click", function () {
@@ -49,20 +58,26 @@ document.querySelectorAll(".deleteProfessor").forEach(
         });
     });
 
+/**
+ * Coloca um evento no botão salvar, para pegar o id do professor.
+ * */
 form.addEventListener('submit', e => {
     e.preventDefault();
     alertAdd.style.display = 'none';
     validate();
     if (id > 0) {
         if (validCpf && validName && validEmail && validDate) {
-            updateProfessor(id);
+            putProfessor(id);
         }
     } else if (validCpf && validName && validEmail && validDate) {
-            submit();
+        postProfessor();
     }
 });
 
-function submit() {
+/**
+ * Função para adicionar professor.
+ * */
+function postProfessor() {
     let formData = {
         name: name.value,
         email: email.value,
@@ -80,20 +95,21 @@ function submit() {
         }
     })
         .then(function (response) {
-            professorSaved(name, email, cpf, date);
+            setMessageSuccess("Professor adicionado!!","add")
         })
         .catch(function (error) {
             if (error.response.status === 409) {
                 const validate = error.response.data;
                 duplicateValues(validate);
             } else {
-                alertAdd.style.display = 'block';
-                alertAdd.className = 'alert alert-danger text-center';
-                alertAdd.innerText = 'Não foi possível adicionar o Professor!!';
+                setMessageError("Não foi possível adicionar o Professor!!");
             }
         });
 }
 
+/**
+ * Função para pegar Professor.
+ * */
 function getProfessor(id) {
     axios.get(`/admin/professor/update/${id}`)
         .then(function (response) {
@@ -105,15 +121,16 @@ function getProfessor(id) {
             date.value = data.date;
         })
         .catch(function (error) {
-            if (error.response.status === 500) {
-                alertAdd.style.display = 'block';
-                alertAdd.className = "alert alert-danger text-center";
-                alertAdd.innerText = "Não foi possível buscar o Professor!!";
+            if (error.response.status === 404) {
+                setMessageError("Não foi possível buscar o Professor!!");
             }
         });
 }
 
-function updateProfessor(id) {
+/**
+ * Função para atualizar Professor.
+ * */
+function putProfessor(id) {
     let formData = {
         name: name.value,
         email: email.value,
@@ -131,21 +148,23 @@ function updateProfessor(id) {
         }
     })
         .then(function (response) {
-            professorUpdated();
+            setMessageSuccess("Professor atualizado!!","update")
         })
         .catch(function (error) {
             if (error.response.status === 409) {
                 const validate = error.response.data;
                 console.log(validate);
                 duplicateValues(validate);
-            } else {
-                alertAdd.style.display = 'block';
-                alertAdd.className = 'alert alert-danger text-center';
-                alertAdd.innerText = 'Não foi possível atualizar o Professor!!';
+            }
+            if(error.response.status === 404){
+                setMessageError("Não foi possível atualizar o Professor!!");
             }
         });
 }
 
+/**
+ * Função para deletar Professor.
+ * */
 function deleteProfessor() {
     axios({
         method: 'delete',
@@ -160,6 +179,9 @@ function deleteProfessor() {
         });
 }
 
+/**
+ * Função para validar nome, cpf, email e data de nascimento do professor.
+ * */
 function validate() {
     cpfUnmasked = cpfMask.unmaskedValue;
     const emailValue = email.value;
@@ -197,6 +219,9 @@ function validate() {
     }
 }
 
+/**
+ * Função para validar digitos do cpf
+ * */
 function validateDigits(cpf) {
     let sum = 0;
     for (let i = 0; i < 9; i++) {
@@ -229,6 +254,9 @@ function validateDigits(cpf) {
     } else return false;
 }
 
+/**
+ * Função para mostrar mensagem de erro no input.
+ * */
 const setError = (element, message) => {
     const formGroup = element.parentElement;
     const errorDisplay = formGroup.querySelector('.error');
@@ -238,6 +266,9 @@ const setError = (element, message) => {
     formGroup.classList.remove('success');
 }
 
+/**
+ * Função para mostrar mensagem de sucesso no input.
+ * */
 const setSuccess = element => {
     const formGroup = element.parentElement;
     const errorDisplay = formGroup.querySelector('.error');
@@ -247,18 +278,36 @@ const setSuccess = element => {
     formGroup.classList.remove('error');
 };
 
-function professorSaved(name, email, cpf, date) {
+/**
+ * Função para mostrar mensagem de sucesso.
+ * */
+function setMessageSuccess(message,type) {
     alertAdd.style.display = 'block';
     alertAdd.className = "alert alert-success text-center";
-    alertAdd.innerText = "Professor adicionado!!";
-    resetAll();
+    alertAdd.innerText = message;
+    if(type === "add"){
+        resetInputs();
+    }
+}
+
+/**
+ * Função para mostrar mensagem de erro.
+ * */
+function setMessageError(message) {
+    alertAdd.style.display = 'block';
+    alertAdd.className = "alert alert-danger text-center";
+    alertAdd.innerText = message;
+}
+
+/**
+ * Função para resetar inputs.
+ * */
+function resetInputs() {
     name.value = "";
     email.value = "";
     cpf.value = "";
     date.value = "";
-}
 
-function resetAll() {
     const formGroup = name.parentElement;
     formGroup.classList.remove('success');
 
@@ -272,20 +321,16 @@ function resetAll() {
     formGroup4.classList.remove('success');
 }
 
-function professorUpdated() {
-    alertAdd.style.display = 'block';
-    alertAdd.className = "alert alert-success text-center";
-    alertAdd.innerText = "Professor atualizado!!";
-}
-
-function resetModal() {
-    name.innerHTML = "";
-    email.innerHTML = "";
-    cpf.innerHTML = "";
-    date.innerHTML = "";
+/**
+ * Função para reload da página professor.html.
+ * */
+function reload() {
     location.reload();
 }
 
+/**
+ * Função para informar se email e cpf já existem.
+ * */
 function duplicateValues(validate){
     if(validate.emailExists){
         setError(email, "Email já em uso!");
