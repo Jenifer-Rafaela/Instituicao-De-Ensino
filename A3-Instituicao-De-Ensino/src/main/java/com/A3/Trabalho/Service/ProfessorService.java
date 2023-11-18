@@ -77,7 +77,7 @@ public class ProfessorService {
         Optional<Professor> professor = professorRepository.findById(id);
 
         if (professor.isPresent()) {
-            model.addAttribute("Professor", professorDTO.ProfessorToDTO(professor.get()));
+            model.addAttribute("Professor", professorResponseDTO.professorToDTO(professor.get()));
             model.addAttribute("Classes", classesDTO.classesToDTOList(classes));
             return new ModelAndView("professorDetails");
         }

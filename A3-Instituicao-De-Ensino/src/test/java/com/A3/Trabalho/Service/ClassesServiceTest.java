@@ -165,7 +165,7 @@ public class ClassesServiceTest {
     void When_classDetails_Expect_viewClassDetails() {
         Model model = mock(Model.class);
         when(classesRepository.findById(classes.getId())).thenReturn(Optional.of(classes));
-        when(studentRepository.findAllByClassesId(classes.getId())).thenReturn(List.of(new Student()));
+        when(studentRepository.findAllByClassesId(classes.getId())).thenReturn(List.of(student));
         ModelAndView modelAndView = classesService.classDetails(classes.getId(), model);
         assertEquals("classDetails", modelAndView.getViewName());
     }

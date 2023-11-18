@@ -20,19 +20,23 @@ public class ProfessorResponseDTOTest {
         Professor professor2 = new Professor(3L, "João", "joão@gmail.com", "17345656756", "Mestre", Date.valueOf("1982-01-02"));
 
         List<ProfessorResponseDTO> prList = professorResponseDTO.professorToDTOList(List.of(professor1, professor2));
+        String cpf = "110.526.547-11";
+        String cpf2 = "173.456.567-56";
+        String date = "13/05/1980";
+        String date2 = "02/01/1982";
 
         assertEquals(professor1.getId(), prList.get(0).getId());
         assertEquals(professor1.getName(), prList.get(0).getName());
         assertEquals(professor1.getEmail(), prList.get(0).getEmail());
-        assertEquals(professor1.getCpf(), prList.get(0).getCpf());
+        assertEquals(cpf, prList.get(0).getCpf());
         assertEquals(professor1.getDegree(), prList.get(0).getDegree());
-        assertEquals(professor1.getDate(), prList.get(0).getDate());
+        assertEquals(date, prList.get(0).getDate());
 
         assertEquals(professor2.getId(), prList.get(1).getId());
         assertEquals(professor2.getName(), prList.get(1).getName());
         assertEquals(professor2.getEmail(), prList.get(1).getEmail());
-        assertEquals(professor2.getCpf(), prList.get(1).getCpf());
+        assertEquals(cpf2, prList.get(1).getCpf());
         assertEquals(professor2.getDegree(), prList.get(1).getDegree());
-        assertEquals(professor2.getDate(), prList.get(1).getDate());
+        assertEquals(date2, prList.get(1).getDate());
     }
 }

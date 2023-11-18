@@ -50,6 +50,7 @@ public class StudentServiceTest {
         Mockito.when(studentRepository.cpfExists(studentDTO.DTOToStudent().getCpf())).thenReturn(false);
 
         ResponseEntity<Map<String, Boolean>> responseEntity = studentService.addStudent(studentDTO);
+
         assertEquals(ResponseEntity.status(200).build(), responseEntity);
     }
 
@@ -66,11 +67,11 @@ public class StudentServiceTest {
     @DisplayName("Testa método studentDetails quando o estudante existe")
     @Test
     void When_studentDetails_Expect_viewStudentDetails() {
-        Student student = new Student();
         List<Classes> classes = Arrays.asList(new Classes(), new Classes());
         Model model = Mockito.mock(Model.class);
+
         Mockito.when(classesRepository.findClassesByStudentsId(studentId)).thenReturn(classes);
-        Mockito.when(studentRepository.findById(studentId)).thenReturn(Optional.of(student));
+        Mockito.when(studentRepository.findById(studentId)).thenReturn(Optional.of(studentDTO.DTOToStudent()));
 
         ModelAndView modelAndView = studentService.studentDetails(studentId, model);
         assertEquals("studentDetails", modelAndView.getViewName());
@@ -81,6 +82,7 @@ public class StudentServiceTest {
     void When_studentDetails_Expect_viewError() {
         List<Classes> classes = new ArrayList<>();
         Model model = Mockito.mock(Model.class);
+
         Mockito.when(classesRepository.findClassesByStudentsId(studentId)).thenReturn(classes);
         Mockito.when(studentRepository.findById(studentId)).thenReturn(Optional.empty());
 
@@ -92,9 +94,10 @@ public class StudentServiceTest {
     @Test
     void When_getStudent_Expect_200() {
         Student student = new Student(studentId, "Jenifer", "jenifer2@gmail.com", "84892340792", "Noite", Date.valueOf("2000-05-13"));
+
         Mockito.when(studentRepository.findById(studentId)).thenReturn(Optional.of(student));
 
-        ResponseEntity<StudentResponseDTO> responseEntity = studentService.getStudent(student.getId());
+        ResponseEntity<StudentDTO> responseEntity = studentService.getStudent(student.getId());
         assertEquals(200, responseEntity.getStatusCode().value());
     }
 
@@ -103,7 +106,8 @@ public class StudentServiceTest {
     void When_getStudent_Expect_404() {
         Mockito.when(studentRepository.findById(studentId)).thenReturn(Optional.empty());
 
-        ResponseEntity<StudentResponseDTO> responseEntity = studentService.getStudent(studentId);
+        ResponseEntity<StudentDTO> responseEntity = studentService.getStudent(studentId);
+
         assertEquals(404, responseEntity.getStatusCode().value());
     }
 

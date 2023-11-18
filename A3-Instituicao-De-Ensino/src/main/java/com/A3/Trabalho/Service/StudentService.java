@@ -25,6 +25,7 @@ public class StudentService {
     private final ClassesRepository classRepository;
 
     private StudentResponseDTO studentResponseDTO = new StudentResponseDTO();
+    private StudentDTO studentDTO = new StudentDTO();
     private ClassesResponseDTO classesResponseDTO = new ClassesResponseDTO();
 
     public StudentService(ClassesRepository classRepository, StudentRepository studentRepository) {
@@ -87,10 +88,10 @@ public class StudentService {
      * @return ResponseEntity - com informações do estudante para a view (students.html) e status 200.
      * @throws ResponseEntity com status 500.
      */
-    public ResponseEntity<StudentResponseDTO> getStudent(long id) {
+    public ResponseEntity<StudentDTO> getStudent(long id) {
         Optional<Student> student = studentRepository.findById(id);
         if (student.isPresent()) {
-            return ResponseEntity.status(200).body(studentResponseDTO.studentToDTO(student.get()));
+            return ResponseEntity.status(200).body(studentDTO.studentToDTO(student.get()));
         } return ResponseEntity.status(404).build();
     }
 

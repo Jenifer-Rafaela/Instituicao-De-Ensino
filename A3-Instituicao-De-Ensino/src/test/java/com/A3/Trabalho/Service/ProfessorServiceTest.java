@@ -43,8 +43,7 @@ public class ProfessorServiceTest {
     void setUp() {
         professorDTO = new ProfessorDTO("Ricardo", "ricardo@gmail.com", "11052654711", "Mestre", Date.valueOf("1980-09-12"));
         classes = new Classes();
-        professor = new Professor();
-        professor.setId(1L);
+        professor = professorDTO.DTOToProfessor();
         classes.setProfessor(professor);
     }
 
@@ -88,10 +87,9 @@ public class ProfessorServiceTest {
     @DisplayName("Testa método professorDetails quando o professor não existe")
     @Test
     void When_professorDetails_Expect_viewError() {
-        List<Classes> classes1 = new ArrayList<>();
         Model model = mock(Model.class);
 
-        when(classesRepository.findClassesByProfessorId(1L)).thenReturn(classes1);
+        when(classesRepository.findClassesByProfessorId(professor.getId())).thenReturn(List.of(classes));
         when(professorRepository.findById(professor.getId())).thenReturn(Optional.empty());
 
         ModelAndView modelAndView = professorService.professorDetails(professor.getId(), model);

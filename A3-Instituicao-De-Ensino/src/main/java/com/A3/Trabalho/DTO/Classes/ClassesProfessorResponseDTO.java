@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
  * */
 public class ClassesProfessorResponseDTO {
 
-    private long id;
+    private Long id;
     private String className;
     private String classRoom;
     private String time;

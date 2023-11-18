@@ -22,7 +22,7 @@ public class StudentResponseDTO {
     private String email;
     private String cpf;
     private String shift;
-    private Date date;
+    private String date;
 
     /**
      * <strong>Método para transformar student em StudentResponseDTO.</strong>
@@ -31,7 +31,7 @@ public class StudentResponseDTO {
      * @return StudentResponseDTO.
      */
     public StudentResponseDTO studentToDTO(Student student){
-        return new StudentResponseDTO(student.getId(),student.getName(),student.getEmail() ,student.getCpf(),student.getShift(),student.getDate());
+        return new StudentResponseDTO(student.getId(),student.getName(),student.getEmail() ,formatCpf(student.getCpf()),student.getShift(),formatDate(student.getDate()));
     }
 
     /**
@@ -45,10 +45,19 @@ public class StudentResponseDTO {
                         Student.getId(),
                         Student.getName(),
                         Student.getEmail(),
-                        Student.getCpf(),
+                        formatCpf(Student.getCpf()),
                         Student.getShift(),
-                        Student.getDate()))
+                        formatDate(Student.getDate())))
                 .collect(Collectors.toList());
         return srdList;
+    }
+
+    private String formatDate(Date date){
+        String dateArray[] = date.toString().split("-");
+        return dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+    }
+
+    private String formatCpf(String cpf){
+        return cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
     }
 }

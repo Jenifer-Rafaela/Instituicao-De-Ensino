@@ -78,20 +78,20 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
 
-<script>
-    /**
-     * Máscara para CPF e Data
-     * */
-    document.addEventListener("DOMContentLoaded", function(){
-        let cpf = document.getElementById("cpf");
-        cpf.removeAttribute("th:text");
-        cpf.innerHTML = cpf.innerHTML.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+<!--<script>-->
+<!--    /**-->
+<!--     * Máscara para CPF e Data-->
+<!--     * */-->
+<!--    document.addEventListener("DOMContentLoaded", function(){-->
+<!--        let cpf = document.getElementById("cpf");-->
+<!--        cpf.removeAttribute("th:text");-->
+<!--        cpf.innerHTML = cpf.innerHTML.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");-->
 
-        const date = document.getElementById("date");
-        const formatDate = date.innerText.split('-');
-        date.removeAttribute("th:text");
-        date.innerText = formatDate[2] + "-" + formatDate[1] + "-" + formatDate[0];
-    });
-</script>
+<!--        const date = document.getElementById("date");-->
+<!--        const formatDate = date.innerText.split('-');-->
+<!--        date.removeAttribute("th:text");-->
+<!--        date.innerText = formatDate[2] + "-" + formatDate[1] + "-" + formatDate[0];-->
+<!--    });-->
+<!--</script>-->
 </body>
 </html>

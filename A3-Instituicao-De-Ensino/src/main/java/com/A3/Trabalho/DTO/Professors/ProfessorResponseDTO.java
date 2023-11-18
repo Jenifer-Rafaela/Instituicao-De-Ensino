@@ -1,6 +1,8 @@
 package com.A3.Trabalho.DTO.Professors;
 
+import com.A3.Trabalho.DTO.Students.StudentResponseDTO;
 import com.A3.Trabalho.Model.Professor;
+import com.A3.Trabalho.Model.Student;
 import lombok.*;
 
 import java.sql.Date;
@@ -21,8 +23,17 @@ public class ProfessorResponseDTO {
     private String email;
     private String cpf;
     private String degree;
-    private Date date;
+    private String date;
 
+    /**
+     * <strong>Método para transformar professor em ProfessorResponseDTO.</strong>
+     *
+     * @param professor será transformado em ProfessorResponseDTO.
+     * @return ProfessorResponseDTO.
+     */
+    public ProfessorResponseDTO professorToDTO(Professor professor){
+        return new ProfessorResponseDTO(professor.getId(),professor.getName(),professor.getEmail() ,formatCpf(professor.getCpf()),professor.getDegree(),formatDate(professor.getDate()));
+    }
 
     /**
      * <strong>Método para transformar uma lista de professor em uma lista ProfessorResponseDTO.</strong>
@@ -35,11 +46,20 @@ public class ProfessorResponseDTO {
                         Professor.getId(),
                         Professor.getName(),
                         Professor.getEmail(),
-                        Professor.getCpf(),
+                        formatCpf(Professor.getCpf()),
                         Professor.getDegree(),
-                        Professor.getDate()))
+                        formatDate(Professor.getDate())))
                 .collect(Collectors.toList());
 
         return prdList;
+    }
+
+    private String formatDate(Date date){
+        String dateArray[] = date.toString().split("-");
+        return dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+    }
+
+    private String formatCpf(String cpf){
+        return cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
     }
 }

@@ -1,7 +1,12 @@
 package com.A3.Trabalho.DTO.Students;
 
+import com.A3.Trabalho.DTO.Professors.ProfessorDTO;
+import com.A3.Trabalho.Model.Professor;
 import com.A3.Trabalho.Model.Student;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Date;
 
@@ -37,5 +42,15 @@ public class StudentDTO {
      */
     public Student DTOToStudentUpdate(Student student) {
         return new Student(student.getId(), name, email, cpf, shift, date);
+    }
+
+    /**
+     * <strong>Método para transformar Student em StudentDTO.</strong>
+     *
+     * @param student será transformado em StudentDTO.
+     * @return StudentDTO.
+     */
+    public StudentDTO studentToDTO(Student student) {
+        return new StudentDTO(student.getName(), student.getEmail(), student.getCpf(), student.getShift(), student.getDate());
     }
 }
