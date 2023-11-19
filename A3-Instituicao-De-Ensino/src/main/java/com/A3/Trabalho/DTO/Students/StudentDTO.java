@@ -23,7 +23,7 @@ public class StudentDTO {
     private String email;
     private String cpf;
     private String shift;
-    private Date date;
+    private String date;
 
     /**
      * <strong>Método para transformar StudentDTO em Student.</strong>
@@ -31,7 +31,7 @@ public class StudentDTO {
      * @return Student.
      */
     public Student DTOToStudent() {
-        return new Student(name, email, cpf, shift, date);
+        return new Student(name, email, cpf, shift, Date.valueOf(date));
     }
 
     /**
@@ -41,7 +41,7 @@ public class StudentDTO {
      * @return Student.
      */
     public Student DTOToStudentUpdate(Student student) {
-        return new Student(student.getId(), name, email, cpf, shift, date);
+        return new Student(student.getId(), name, email, cpf, shift, Date.valueOf(date));
     }
 
     /**
@@ -51,6 +51,6 @@ public class StudentDTO {
      * @return StudentDTO.
      */
     public StudentDTO studentToDTO(Student student) {
-        return new StudentDTO(student.getName(), student.getEmail(), student.getCpf(), student.getShift(), student.getDate());
+        return new StudentDTO(student.getName(), student.getEmail(), student.getCpf(), student.getShift(), student.getDate().toString());
     }
 }

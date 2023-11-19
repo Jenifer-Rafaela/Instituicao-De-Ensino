@@ -100,11 +100,16 @@ public class ClassesService {
     public ResponseEntity putClass(long id, ClassesDTO classesDTO) {
         Optional<Classes> classes = classRepository.findById(id);
         Optional<Professor> professor = professorRepository.findById(classesDTO.getProfessor());
-        boolean classTimeAlreadyExists = classRepository.classTimeAlreadyInUse(
-                classesDTO.getClassday(), classesDTO.getTime(), classesDTO.getClassRoom());
 
         if (classes.isPresent() && professor.isPresent()) {
+            boolean classTimeAlreadyExists = !(classesDTO.getTime().equals(classes.get().getTime()) &&
+                    classesDTO.getClassday().equals(classes.get().getClassday()) &&
+                    classesDTO.getClassRoom().equals(classes.get().getClassRoom())) ?
+                    classRepository.classTimeAlreadyInUse(classesDTO.getClassday(), classesDTO.getTime(),
+                            classesDTO.getClassRoom()) : false;
+
             if (classTimeAlreadyExists) return ResponseEntity.status(409).build();
+
             classRepository.save(classesDTO.DTOToClassUpdate(classes.get(), professor.get()));
             return ResponseEntity.status(200).build();
         } return ResponseEntity.status(404).build();

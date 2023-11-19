@@ -73,6 +73,7 @@
         <tbody>
         <tr th:each="class, iStat : ${Classes}">
             <th scope="row" th:text="${iStat.index + 1}">1</th>
+            <input type="hidden" th:value="${class.id}" class="id">
             <td th:text="${class.className}">UC</td>
             <td th:text="${class.classRoom}">Sala</td>
             <td th:text="${class.time}">Horario</td>

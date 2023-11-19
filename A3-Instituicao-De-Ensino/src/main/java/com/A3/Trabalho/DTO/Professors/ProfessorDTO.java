@@ -18,7 +18,7 @@ public class ProfessorDTO {
     private String email;
     private String cpf;
     private String degree;
-    private Date date;
+    private String date;
 
     /**
      * <strong>Método para transformar ProfessorDTO em Professor.</strong>
@@ -26,7 +26,7 @@ public class ProfessorDTO {
      * @return Professor.
      */
     public Professor DTOToProfessor() {
-        return new Professor(name, email, cpf, degree, date);
+        return new Professor(name, email, cpf, degree, Date.valueOf(date));
     }
 
     /**
@@ -40,7 +40,7 @@ public class ProfessorDTO {
         professor.setEmail(email);
         professor.setCpf(cpf);
         professor.setDegree(degree);
-        professor.setDate(date);
+        professor.setDate(Date.valueOf(date));
         return professor;
     }
 
@@ -51,7 +51,7 @@ public class ProfessorDTO {
      * @return ProfessorDTO.
      */
     public ProfessorDTO ProfessorToDTO(Professor professor) {
-        return new ProfessorDTO(professor.getName(), professor.getEmail(), professor.getCpf(), professor.getDegree(), professor.getDate());
+        return new ProfessorDTO(professor.getName(), professor.getEmail(), professor.getCpf(), professor.getDegree(), professor.getDate().toString());
     }
 
 }

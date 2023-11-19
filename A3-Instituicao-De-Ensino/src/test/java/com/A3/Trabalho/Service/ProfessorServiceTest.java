@@ -41,7 +41,7 @@ public class ProfessorServiceTest {
 
     @BeforeEach
     void setUp() {
-        professorDTO = new ProfessorDTO("Ricardo", "ricardo@gmail.com", "11052654711", "Mestre", Date.valueOf("1980-09-12"));
+        professorDTO = new ProfessorDTO("Ricardo", "ricardo@gmail.com", "11052654711", "Mestre", "1980-09-12");
         classes = new Classes();
         professor = professorDTO.DTOToProfessor();
         classes.setProfessor(professor);

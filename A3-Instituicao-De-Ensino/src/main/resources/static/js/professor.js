@@ -16,6 +16,7 @@ let validDate = false;
 let validCpf = false;
 let validName = false;
 
+
 /**
  * Função que ao inicializar o DOM coloca máscara no CPF e max e min do input Data.
  * */
@@ -78,6 +79,7 @@ form.addEventListener('submit', e => {
  * Função para adicionar professor.
  * */
 function postProfessor() {
+
     let formData = {
         name: name.value,
         email: email.value,
@@ -131,6 +133,7 @@ function getProfessor(id) {
  * Função para atualizar Professor.
  * */
 function putProfessor(id) {
+    console.log("No PUT"+date.value)
     let formData = {
         name: name.value,
         email: email.value,
@@ -138,9 +141,8 @@ function putProfessor(id) {
         degree: degree.value,
         date: date.value
     };
-
     axios({
-        method: 'put',
+        method: 'PUT',
         url: `/admin/professor/update/${id}`,
         data: formData,
         headers: {

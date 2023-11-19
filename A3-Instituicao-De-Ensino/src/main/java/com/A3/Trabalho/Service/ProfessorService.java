@@ -110,7 +110,6 @@ public class ProfessorService {
      */
     public ResponseEntity<Map<String, Boolean>> putProfessor(long id, ProfessorDTO professorDTO) {
         Optional<Professor> professor = professorRepository.findById(id);
-
         if (professor.isPresent()) {
             boolean emailExists = !professorDTO.getEmail().equals(professor.get().getEmail()) ? professorRepository.emailExists(professorDTO.getEmail()) : false;
             boolean cpfExists = !professorDTO.getCpf().equals(professor.get().getCpf()) ? professorRepository.cpfExists(professorDTO.getCpf()) : false;

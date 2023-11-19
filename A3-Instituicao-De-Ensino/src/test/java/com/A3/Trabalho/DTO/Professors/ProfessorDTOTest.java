@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProfessorDTOTest {
 
-    private ProfessorDTO professorDTO = new ProfessorDTO("Jenifer", "jenifer@gmail.com", "12345678910", "Mestre", Date.valueOf("1980-05-21"));
+    private ProfessorDTO professorDTO = new ProfessorDTO("Jenifer", "jenifer@gmail.com", "12345678910", "Mestre", "1980-05-21");
     private Professor professor1 = new Professor(2L, "Jenifer", "jenifer@gmail.com", "11052654711", "Mestre", Date.valueOf("1980-05-13"));
 
     @DisplayName("Testa método DTOToProfessor")
@@ -22,7 +22,7 @@ public class ProfessorDTOTest {
         assertEquals(professor.getEmail(), professorDTO.getEmail());
         assertEquals(professor.getCpf(), professorDTO.getCpf());
         assertEquals(professor.getDegree(), professorDTO.getDegree());
-        assertEquals(professor.getDate(), professorDTO.getDate());
+        assertEquals(professor.getDate(), Date.valueOf(professorDTO.getDate()));
     }
 
     @DisplayName("Testa método professorToDTOList")

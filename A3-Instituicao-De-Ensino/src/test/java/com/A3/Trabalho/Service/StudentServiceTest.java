@@ -40,7 +40,7 @@ public class StudentServiceTest {
 
     @BeforeEach
     void setUp() {
-        studentDTO = new StudentDTO("Jenifer", "jenifer2@gmail.com", "84892340792", "Noite", Date.valueOf("2000-05-13"));
+        studentDTO = new StudentDTO("Jenifer", "jenifer2@gmail.com", "84892340792", "Noite", "2000-05-13");
     }
 
     @DisplayName("Testa método addStudent quando cpf e email estão disponíveis")

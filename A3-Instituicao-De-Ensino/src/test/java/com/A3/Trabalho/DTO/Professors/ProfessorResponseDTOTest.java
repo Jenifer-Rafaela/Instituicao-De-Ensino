@@ -22,8 +22,8 @@ public class ProfessorResponseDTOTest {
         List<ProfessorResponseDTO> prList = professorResponseDTO.professorToDTOList(List.of(professor1, professor2));
         String cpf = "110.526.547-11";
         String cpf2 = "173.456.567-56";
-        String date = "13/05/1980";
-        String date2 = "02/01/1982";
+        String date = "13-05-1980";
+        String date2 = "02-01-1982";
 
         assertEquals(professor1.getId(), prList.get(0).getId());
         assertEquals(professor1.getName(), prList.get(0).getName());
