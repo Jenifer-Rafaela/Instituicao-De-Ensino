@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const thisYear = new Date().getFullYear();
     minYear = thisYear - 14;
-    maxYear = thisYear - 85;
+    maxYear = thisYear - 75;
 
     date.setAttribute("max", minYear+"-12-31")
     date.setAttribute("min", maxYear+"-01-01")
