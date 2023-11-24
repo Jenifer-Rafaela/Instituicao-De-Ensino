@@ -6,7 +6,7 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 
 # Índice 
 * [Tecnologias](#Tecnologias)
-* [Funcionalidades do projeto](#Funcionalidades-do-projeto)
+* [Funcionalidades do projeto](#Funcionalidades-do-Projeto)
 * [Diagramas do Projeto](#Diagramas-Do-Projeto)
 * [Testes Unitários](#Testes-Unitários)
   
@@ -22,7 +22,7 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 - Banco de dados: H2;
 - Testes unitários: JUnit.
 
-# :hammer: Funcionalidades do projeto
+# :hammer: Funcionalidades Do Projeto
 - `Autenticação e Autorização`: Controle de acesso por meio de autenticação de usuários (login/logout).
 - `Validações`:
   - Nomes precisam ter pelo menos três letras;
@@ -93,4 +93,4 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 - Esquema do Banco de Dados
 ![CURSO](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/db08b747-acd2-4a56-982c-80bc18b95938)
 
-# Teste Unitários
+# Testes Unitários
