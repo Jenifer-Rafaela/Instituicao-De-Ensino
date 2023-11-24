@@ -6,9 +6,9 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 
 # Índice 
 * [Tecnologias](#Tecnologias)
-* [Funcionalidades do projeto](##Funcionalidades-do-projeto)
-* [Diagramas do Projeto](##Diagramas-Do-Projeto)
-* [Testes Unitários](##Testes-Unitários)
+* [Funcionalidades do projeto](#Funcionalidades-do-projeto)
+* [Diagramas do Projeto](#Diagramas-Do-Projeto)
+* [Testes Unitários](#Testes-Unitários)
   
 # :woman_technologist: Tecnologias
 - IDE IntelliJ;
@@ -22,7 +22,7 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 - Banco de dados: H2;
 - Testes unitários: JUnit.
 
-## :hammer: Funcionalidades do projeto
+# :hammer: Funcionalidades do projeto
 - `Autenticação e Autorização`: Controle de acesso por meio de autenticação de usuários (login/logout).
 - `Validações`:
   - Nomes precisam ter pelo menos três letras;
@@ -86,11 +86,11 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 - `Adicionar Aluno`: É possível adicionar aluno informando a RA ou número que contenha na RA. Apenas alunos com o mesmo turno da turma serão mostrados.
 - `Remover Aluno`: É possível remover aluno da turma.
 
-## Diagramas Do Projeto
+# Diagramas Do Projeto
 - Diagrama MER - modelo James Martin
 ![MER PROJETO INSTITUIÇÃO DE ENSINO (1)](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/42cec73e-2321-4030-b1ba-4b3d805881c9)
 
 - Esquema do Banco de Dados
 ![CURSO](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/db08b747-acd2-4a56-982c-80bc18b95938)
 
-## Teste Unitários
+# Teste Unitários
