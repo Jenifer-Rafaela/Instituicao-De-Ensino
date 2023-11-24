@@ -4,13 +4,13 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
     :white_check_mark:  Projeto Finalizado  :white_check_mark:
 </h4>
 
-## Índice 
-* [Tecnologias](##Tecnologias)
+# Índice 
+* [Tecnologias](#Tecnologias)
 * [Funcionalidades do projeto](##Funcionalidades-do-projeto)
 * [Diagramas do Projeto](##Diagramas-Do-Projeto)
 * [Testes Unitários](##Testes-Unitários)
   
-## :woman_technologist: Tecnologias
+# :woman_technologist: Tecnologias
 - IDE IntelliJ;
 - Spring Framework;
 - padrão de arquitetura MVC;
