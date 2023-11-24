@@ -16,11 +16,10 @@ let validDate = false;
 let validCpf = false;
 let validName = false;
 
-
 /**
  * Função que ao inicializar o DOM coloca máscara no CPF e max e min do input Data.
  * */
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const maskOptions = {
         mask: '000.000.000-00'
     };
@@ -31,8 +30,8 @@ document.addEventListener("DOMContentLoaded", function() {
     minYear = thisYear - 25;
     maxYear = thisYear - 70;
 
-    date.setAttribute("max", minYear+"-12-31")
-    date.setAttribute("min", maxYear+"-01-01")
+    date.setAttribute("max", minYear + "-12-31")
+    date.setAttribute("min", maxYear + "-01-01")
 });
 
 /**
@@ -63,6 +62,7 @@ document.querySelectorAll(".deleteProfessor").forEach(
  * Coloca um evento no botão salvar, para pegar o id do professor.
  * */
 form.addEventListener('submit', e => {
+    console.log(id)
     e.preventDefault();
     alertAdd.style.display = 'none';
     validate();
@@ -97,7 +97,7 @@ function postProfessor() {
         }
     })
         .then(function (response) {
-            setMessageSuccess("Professor adicionado!!","add")
+            setMessageSuccess("Professor adicionado!!", "add")
         })
         .catch(function (error) {
             if (error.response.status === 409) {
@@ -133,7 +133,6 @@ function getProfessor(id) {
  * Função para atualizar Professor.
  * */
 function putProfessor(id) {
-    console.log("No PUT"+date.value)
     let formData = {
         name: name.value,
         email: email.value,
@@ -150,7 +149,7 @@ function putProfessor(id) {
         }
     })
         .then(function (response) {
-            setMessageSuccess("Professor atualizado!!","update")
+            setMessageSuccess("Professor atualizado!!", "update")
         })
         .catch(function (error) {
             if (error.response.status === 409) {
@@ -158,7 +157,7 @@ function putProfessor(id) {
                 console.log(validate);
                 duplicateValues(validate);
             }
-            if(error.response.status === 404){
+            if (error.response.status === 404) {
                 setMessageError("Não foi possível atualizar o Professor!!");
             }
         });
@@ -176,8 +175,11 @@ function deleteProfessor() {
             location.reload();
         })
         .catch(function (error) {
-            alertDelete.style.display = 'block';
-            document.getElementById("deleteButton").disabled = true;
+            if (error.response.status === 409) {
+                alertDelete.style.display = 'block';
+                document.getElementById("deleteButton").disabled = true;
+                id = 0
+            }
         });
 }
 
@@ -216,8 +218,9 @@ function validate() {
         validCpf = true;
     }
 
-    if(dateValue<=minYear || dateValue>=maxYear){
-        setSuccess(date); validDate = true;
+    if (dateValue <= minYear || dateValue >= maxYear) {
+        setSuccess(date);
+        validDate = true;
     }
 }
 
@@ -283,11 +286,11 @@ const setSuccess = element => {
 /**
  * Função para mostrar mensagem de sucesso.
  * */
-function setMessageSuccess(message,type) {
+function setMessageSuccess(message, type) {
     alertAdd.style.display = 'block';
     alertAdd.className = "alert alert-success text-center";
     alertAdd.innerText = message;
-    if(type === "add"){
+    if (type === "add") {
         resetInputs();
     }
 }
@@ -333,11 +336,11 @@ function reload() {
 /**
  * Função para informar se email e cpf já existem.
  * */
-function duplicateValues(validate){
-    if(validate.emailExists){
+function duplicateValues(validate) {
+    if (validate.emailExists) {
         setError(email, "Email já em uso!");
     }
-    if (validate.cpfExists){
+    if (validate.cpfExists) {
         setError(cpf, "CPF já em uso!");
     }
 }

@@ -132,10 +132,10 @@ public class ProfessorService {
      */
     public ResponseEntity deleteProfessor(long id) {
         Optional<Professor> professor = professorRepository.findById(id);
-        if (professor.isPresent()) {
+        List<Classes> professorHasClasses = classesRepository.findClassesByProfessorId(id);
+        if (professor.isPresent() && professorHasClasses.isEmpty()) {
             professorRepository.deleteById(id);
             return ResponseEntity.status(200).build();
-        }
-        return ResponseEntity.status(409).build();
+        } return ResponseEntity.status(409).build();
     }
 }
