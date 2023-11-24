@@ -10,7 +10,7 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 * [Diagramas do Projeto](#Diagramas-Do-Projeto)
 * [Testes Unitários](#Testes-Unitários)
   
-# :woman_technologist: Tecnologias
+# Tecnologias
 - IDE IntelliJ;
 - Spring Framework;
 - padrão de arquitetura MVC;
@@ -22,7 +22,7 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 - Banco de dados: H2;
 - Testes unitários: JUnit.
 
-# :hammer: Funcionalidades Do Projeto
+# Funcionalidades Do Projeto
 - `Autenticação e Autorização`: Controle de acesso por meio de autenticação de usuários (login/logout).
 - `Validações`:
   - Nomes precisam ter pelo menos três letras;
