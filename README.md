@@ -1,5 +1,5 @@
 # Gerenciamento de Professores, Turmas e Estudantes de uma Instituição de Ensino
-O projeto é uma plataforma de gestão educacional que oferece recursos eficientes para administrar e organizar informações relacionadas a professores, alunos e turmas em instituições de ensino. Esta aplicação oferece um ambiente centralizado para gerenciar o corpo docente, alunos matriculados e suas respectivas turmas, facilitando a administração.
+O projeto é uma plataforma de gestão educacional que oferece recursos eficientes para administrar e organizar informações relacionadas a professores, alunos e turmas em uma instituição de ensino. Esta aplicação oferece um ambiente centralizado para gerenciar o corpo docente, alunos matriculados e suas respectivas turmas, facilitando a administração.
 <h4 align="center"> 
     :white_check_mark:  Projeto Finalizado  :white_check_mark:
 </h4>
