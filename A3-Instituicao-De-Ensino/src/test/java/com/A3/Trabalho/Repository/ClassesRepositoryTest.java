@@ -54,7 +54,7 @@ class ClassesRepositoryTest {
         Assertions.assertThat(studentExists).isTrue();
     }
 
-    @DisplayName("Testa método studentExistInClass quando o estudante naõ existe na turma")
+    @DisplayName("Testa método studentExistInClass quando o estudante não existe na turma")
     @Test
     void When_studentExistInClass_Expect_false() {
         Student student3 = new Student(1005L, "Rafaela", "rafaela@gmail.com", "17345656756", "Manhã", Date.valueOf("2000-05-13"));
