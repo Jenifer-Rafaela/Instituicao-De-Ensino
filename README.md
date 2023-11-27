@@ -20,7 +20,7 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 - CSS;
 - JavaScript;
 - Banco de dados memória: H2;
-- Testes unitários: JUnit.
+- Testes unitários: JUnit e Mockito.
 
 # Funcionalidades Do Projeto
 - `Autenticação e Autorização`: Controle de acesso por meio de autenticação de usuários (login/logout).
