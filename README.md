@@ -34,6 +34,10 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 - `Login`: Apenas usuarios com a permissão de ADMIN tem acesso ao sistema.
 
 ![login](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/6dea9859-1af8-4449-bb46-0fb6e3a09ccc)
+
+- `Login Quando não tem Permissão`:
+
+![Login Sem Permissao](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/8bf4032b-0941-4b2e-97c5-e97fdcaf3039)
   
 - `Home`:
 
