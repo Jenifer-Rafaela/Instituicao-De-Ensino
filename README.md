@@ -19,7 +19,7 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 - HTML;
 - CSS;
 - JavaScript;
-- Banco de dados: H2;
+- Banco de dados memória: H2;
 - Testes unitários: JUnit.
 
 # Funcionalidades Do Projeto
@@ -76,15 +76,48 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 ![Estudante Cadastrar](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/06ed208f-b85a-44ce-bd2b-d9794069d48d)
 
 - `Atualizar Estudante`: É possível atualizar estudante.
+
+![Atualizar Estudante](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/ec85bf4f-e76a-4c7e-ba9d-21f3eb7b7718)
+
 - `Remover Estudante`: É possível remover estudante.
+
+![Remover Estudante](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/d83b652e-e7cc-441d-9fcc-55e898c68647)
+
 - `Detalhes Estudante`: É possível ver todas as informações do estudante como quais turmas ele está matriculado.
+
+![Detalhes Estudante](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/716ccc7d-d9cf-40f1-903f-fb1743eca4dd)
+
 - `Turmas`: É possível ver as turmas cadastradas.
+
+![Turmas](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/597f6c35-5730-4a4c-bc90-12de919f0986)
+
 - `Cadastrar Turma`: É possível cadastrar turma, informando: UC, Sala, Horário, Dias da Semana e Professor Responsável.
+
+![Cadastrar Turmas](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/6ead0801-4d2b-4789-8dc2-26ba320bbe4a)
+
+- `Cadastrar Turma Quando sala, horário e dias da semana não estão disponíveis`: não é possível cadastrar a turma.
+
+![Cadastrar Turma inválida](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/835fa1e6-e8b7-4c79-81d8-d9731dbb2ac5)
+
 - `Atualizar Turma`: É possível atualizar turma.
+
+![Atualizar Turmas](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/eb02fe04-0fc9-4c47-85f0-ecbe7b438265)
+
 - `Remover Turma`: É possível remover turma.
+
+![Remover Turmas](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/1a4f2dfb-e3e2-47d4-8d3f-3157f0bf8b18)
+
 - `Detalhes Turma`: É possível ver todas as informações da turma e quais alunos estão matriculados nela.
+
+![Detalhes Turma ](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/b204f129-68b8-4c49-8ac4-10d9b1097687)
+
 - `Adicionar Aluno`: É possível adicionar aluno informando a RA ou número que contenha na RA. Apenas alunos com o mesmo turno da turma serão mostrados.
+
+![Adicionar Aluno](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/2a2a66c0-cc26-46ba-978a-c85f74caff04)
+
 - `Remover Aluno`: É possível remover aluno da turma.
+
+![Remover Aluno](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/3a808868-582f-4254-879d-4219b417eaec)
 
 # Diagramas Do Projeto
 - Diagrama MER - modelo James Martin
@@ -94,3 +127,28 @@ O projeto é uma plataforma de gestão educacional que oferece recursos eficient
 ![CURSO](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/db08b747-acd2-4a56-982c-80bc18b95938)
 
 # Testes Unitários
+
+- Testando classe que se comunica com banco de dados: ClassesRepository
+
+![ClassesRepository](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/7115ed5a-3ed4-4d07-bd48-b5d09aba950a)
+
+- Testando classe que se comunica com banco de dados: ProfessorRepository
+
+![ProfessorRepository](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/e02cb008-c883-4898-a179-91062f2ea3f7)
+
+- Testando classe que se comunica com banco de dados: StudentRepository
+
+![StudentRepository](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/fb2a6d33-4172-4975-b522-a3a2f823506b)
+
+- Testando classe: ClassesService
+
+![ClassesService](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/2743214b-b7e9-49a9-8f56-353629f74f9f)
+
+- Testando classe: ProfessorService
+
+![ProfessorService](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/ee966da6-cab5-4963-94e2-36e48e398953)
+
+- Testando classe: StudentService
+
+![StudentService](https://github.com/Jenifer-Rafaela/Instituicao-De-Ensino/assets/100365167/9eb52526-4ad8-470d-ad7c-b469dff6be14)
+
